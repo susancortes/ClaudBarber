@@ -27,7 +27,8 @@ export interface Paquete {
   serviciosIncluidos: string[]; // Lista de IDs o nombres de los servicios que abarca
   duracionTotal: string; // ej. '60 min'
   precioRegular: number;
-  precioOfertado: number; // Precio especial de la oferta
+  precioOfertado?: number; // Opcional por si no tiene oferta
+  tieneOferta: boolean; // Indica si la oferta está activa o no
   estado: 'Activo' | 'Inactivo';
 }
 

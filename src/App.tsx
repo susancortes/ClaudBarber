@@ -4,6 +4,7 @@ import { Encabezado } from './components/estructura/Encabezado';
 import { Panel } from './pages/Panel';
 import { Citas } from './pages/Citas';
 import { Barberos } from './pages/Barberos';
+import { Servicios } from './pages/Servicios';
 
 export function App() {
   const [paginaActual, setPaginaActual] = useState<string>('panel');
@@ -21,12 +22,7 @@ export function App() {
           {paginaActual === 'panel' && <Panel irACitas={() => setPaginaActual('citas')} />}
           {paginaActual === 'citas' && <Citas />}
           {paginaActual === 'barberos' && <Barberos />}
-          {paginaActual === 'servicios' && (
-            <div>
-              <h1 className="text-2xl font-bold mb-2">Catálogo de Servicios</h1>
-              <p className="text-gray-400 text-sm">Administra los cortes, paquetes y precios.</p>
-            </div>
-          )}
+          {paginaActual === 'servicios' && <Servicios />}
         </main>
       </div>
     </div>
