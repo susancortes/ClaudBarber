@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import type { Cita, MetodoPago } from '../../types';
+import type { Cita, EstadoCita, MetodoPago } from '../../types';
 
 interface PropsModal {
-  cita: Cita | null;
+  cita: Cita;
   onClose: () => void;
   onGuardar: (citaActualizada: Cita) => void;
 }
 
 export const ModalDetalleCita: React.FC<PropsModal> = ({ cita, onClose, onGuardar }) => {
-  const [metodoPago, setMetodoPago] = useState<MetodoPago>(cita?.metodoPago ?? 'Efectivo');
+  const [metodoPago, setMetodoPago] = useState<MetodoPago>(cita.metodoPago || 'Efectivo');
+  const [estado, setEstado] = useState<EstadoCita>(cita.estado);
 
-  if (!cita) return null;
-
-  const handleMarcarAtendida = () => {
+  const handleGuardarCambios = (nuevoEstado?: EstadoCita) => {
+    const estadoFinal = nuevoEstado || estado;
     const actualizada: Cita = {
       ...cita,
-      estado: 'Realizada',
+      estado: estadoFinal,
       metodoPago,
-      pagado: true,
+      pagado: estadoFinal === 'Realizada' ? true : cita.pagado,
     };
     onGuardar(actualizada);
     onClose();
@@ -26,7 +26,6 @@ export const ModalDetalleCita: React.FC<PropsModal> = ({ cita, onClose, onGuarda
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-[#161B2C] border border-gray-800 rounded-xl w-full max-w-lg overflow-hidden shadow-2xl">
-        {/* Encabezado del Modal */}
         <div className="px-6 py-4 border-b border-gray-800 flex justify-between items-center">
           <div>
             <h3 className="text-lg font-bold text-white">Detalles de Reserva</h3>
@@ -35,26 +34,28 @@ export const ModalDetalleCita: React.FC<PropsModal> = ({ cita, onClose, onGuarda
           <button onClick={onClose} className="text-gray-400 hover:text-white text-xl">✕</button>
         </div>
 
-        {/* Cuerpo del Modal */}
         <div className="p-6 space-y-5 text-sm">
-          {/* Estado actual */}
-          <div className="flex justify-between items-center bg-[#1e2538] p-3 rounded-lg border border-gray-800">
-            <span className="text-gray-400">Estado de la reserva</span>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              • {cita.estado}
-            </span>
+          {/* Selector de Estado */}
+          <div>
+            <label className="block text-xs text-gray-400 mb-1">Estado de la reserva</label>
+            <select
+              value={estado}
+              onChange={(e) => setEstado(e.target.value as EstadoCita)}
+              className="w-full bg-[#1e2538] border border-gray-700 text-gray-200 rounded-lg p-2.5 focus:outline-none"
+            >
+              <option value="Pendiente">Pendiente</option>
+              <option value="Confirmada">Confirmada</option>
+              <option value="Realizada">Realizada</option>
+              <option value="Cancelada">Cancelada</option>
+            </select>
           </div>
 
-          {/* Cliente y Contacto */}
           <div>
             <p className="text-xs text-gray-400">Nombre del Cliente</p>
             <p className="text-base font-semibold text-white">{cita.cliente}</p>
-            {cita.contacto && (
-              <p className="text-xs text-gray-400 mt-1">{cita.contacto}</p>
-            )}
+            {cita.contacto && <p className="text-xs text-gray-400 mt-1">{cita.contacto}</p>}
           </div>
 
-          {/* Servicio y Barbero */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-xs text-gray-400">Detalles del Servicio</p>
@@ -66,13 +67,11 @@ export const ModalDetalleCita: React.FC<PropsModal> = ({ cita, onClose, onGuarda
             </div>
           </div>
 
-          {/* Precio Total */}
           <div className="bg-[#1e2538] p-4 rounded-lg flex justify-between items-center border border-gray-800">
             <span className="font-medium text-gray-300">Precio Total</span>
             <span className="text-2xl font-bold text-white">${cita.precioTotal}.00 MXN</span>
           </div>
 
-          {/* Método de Pago */}
           <div>
             <p className="text-xs text-gray-400 mb-2">Método de pago</p>
             <div className="flex gap-4">
@@ -93,20 +92,27 @@ export const ModalDetalleCita: React.FC<PropsModal> = ({ cita, onClose, onGuarda
           </div>
         </div>
 
-        {/* Acciones del Modal */}
-        <div className="px-6 py-4 border-t border-gray-800 flex justify-end gap-3 bg-[#131726]/50">
+        <div className="px-6 py-4 border-t border-gray-800 flex justify-between bg-[#131726]/50">
           <button
-            onClick={onClose}
-            className="px-4 py-2 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 text-sm font-medium"
+            onClick={() => handleGuardarCambios('Cancelada')}
+            className="px-4 py-2 rounded-lg border border-red-500/30 text-red-400 hover:bg-red-500/10 text-sm font-medium"
           >
-            Cancelar
+            Cancelar cita
           </button>
-          <button
-            onClick={handleMarcarAtendida}
-            className="px-4 py-2 rounded-lg bg-white text-gray-900 hover:bg-gray-200 text-sm font-semibold"
-          >
-            Marcar Atendida
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 text-sm font-medium"
+            >
+              Cerrar
+            </button>
+            <button
+              onClick={() => handleGuardarCambios()}
+              className="px-4 py-2 rounded-lg bg-white text-gray-900 hover:bg-gray-200 text-sm font-semibold"
+            >
+              Guardar cambios
+            </button>
+          </div>
         </div>
       </div>
     </div>
