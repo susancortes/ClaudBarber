@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { BarraLateral } from './components/estructura/BarraLateral';
 import { Encabezado } from './components/estructura/Encabezado';
+import { Panel } from './pages/Panel';
+import { Citas } from './pages/Citas';
 
 export function App() {
   const [paginaActual, setPaginaActual] = useState<string>('panel');
@@ -15,18 +17,8 @@ export function App() {
         <Encabezado />
 
         <main className="p-8 flex-1 overflow-y-auto">
-          {paginaActual === 'panel' && (
-            <div>
-              <h1 className="text-2xl font-bold mb-2">Panel de Control</h1>
-              <p className="text-gray-400 text-sm">Resumen de la actividad de tu barbería.</p>
-            </div>
-          )}
-          {paginaActual === 'citas' && (
-            <div>
-              <h1 className="text-2xl font-bold mb-2">Gestión de Citas</h1>
-              <p className="text-gray-400 text-sm">Consulta y administra las reservas de la barbería.</p>
-            </div>
-          )}
+          {paginaActual === 'panel' && <Panel irACitas={() => setPaginaActual('citas')} />}
+          {paginaActual === 'citas' && <Citas />}
           {paginaActual === 'barberos' && (
             <div>
               <h1 className="text-2xl font-bold mb-2">Equipo de Barberos</h1>
