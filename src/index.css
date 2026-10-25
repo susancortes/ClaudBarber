@@ -1,3 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-barberDark: #161B2C;
+  --color-barberBlue: #272F4A;
+  --color-barberLight: #D9D9D9;
+}
