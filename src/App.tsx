@@ -3,6 +3,7 @@ import { BarraLateral } from './components/estructura/BarraLateral';
 import { Encabezado } from './components/estructura/Encabezado';
 import { Panel } from './pages/Panel';
 import { Citas } from './pages/Citas';
+import { Barberos } from './pages/Barberos';
 
 export function App() {
   const [paginaActual, setPaginaActual] = useState<string>('panel');
@@ -19,12 +20,7 @@ export function App() {
         <main className="p-8 flex-1 overflow-y-auto">
           {paginaActual === 'panel' && <Panel irACitas={() => setPaginaActual('citas')} />}
           {paginaActual === 'citas' && <Citas />}
-          {paginaActual === 'barberos' && (
-            <div>
-              <h1 className="text-2xl font-bold mb-2">Equipo de Barberos</h1>
-              <p className="text-gray-400 text-sm">Administra los perfiles y la disponibilidad de tu equipo.</p>
-            </div>
-          )}
+          {paginaActual === 'barberos' && <Barberos />}
           {paginaActual === 'servicios' && (
             <div>
               <h1 className="text-2xl font-bold mb-2">Catálogo de Servicios</h1>
