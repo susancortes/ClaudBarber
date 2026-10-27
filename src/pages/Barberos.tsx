@@ -73,7 +73,7 @@ export const Barberos: React.FC = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Equipo de Barberos</h1>
           <p className="text-sm text-gray-400">Administra los perfiles y la disponibilidad de tu equipo.</p>
@@ -86,7 +86,7 @@ export const Barberos: React.FC = () => {
         </button>
       </div>
 
-      <div className="flex justify-between items-center mb-4 text-xs text-gray-400">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
         <span>{barberos.length} barberos en el equipo</span>
         <span>{activosCount} activos · {inactivosCount} inactivos</span>
       </div>

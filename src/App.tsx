@@ -67,13 +67,13 @@ export function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#0d101d] text-gray-100 font-sans">
+    <div className="flex min-h-screen flex-col bg-[#0d101d] font-sans text-gray-100 lg:flex-row">
       <BarraLateral paginaActual={paginaActual} setPaginaActual={setPaginaActual} />
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex min-w-0 flex-1 flex-col">
         <Encabezado />
 
-        <main className="p-8 flex-1 overflow-y-auto">
+        <main className="min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
           {paginaActual === 'panel' && (
             <Panel citas={citas} irACitas={() => setPaginaActual('citas')} />
           )}

@@ -21,9 +21,9 @@ export const Encabezado: React.FC<PropsEncabezado> = () => {
   );
 
   return (
-    <header className="h-16 bg-[#161B2C] border-b border-gray-800 px-8 flex items-center justify-between relative z-40">
+    <header className="relative z-40 flex min-h-16 items-center justify-between gap-3 border-b border-gray-800 bg-[#161B2C] px-4 py-3 sm:px-6 lg:px-8">
       {/* Buscador Global Interactivo */}
-      <div className="relative w-96">
+      <div className="relative min-w-0 flex-1 sm:max-w-96">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
           🔍
         </div>
@@ -79,14 +79,18 @@ export const Encabezado: React.FC<PropsEncabezado> = () => {
       </div>
 
       {/* Perfil del Administrador y Notificaciones */}
-      <div className="flex items-center gap-4">
-        <button className="w-9 h-9 bg-[#0d101d] border border-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-colors relative">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+        <button
+          type="button"
+          aria-label="Notificaciones"
+          className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-gray-800 bg-[#0d101d] text-gray-400 transition-colors hover:text-white"
+        >
           🔔
           <span className="absolute top-2 right-2 w-2 h-2 bg-indigo-500 rounded-full"></span>
         </button>
 
-        <div className="flex items-center gap-3 pl-2 border-l border-gray-800">
-          <div className="text-right">
+        <div className="flex items-center gap-2 border-l border-gray-800 pl-2 sm:gap-3 sm:pl-3">
+          <div className="hidden text-right sm:block">
             <p className="text-xs font-semibold text-white">Administrador</p>
             <p className="text-[10px] text-gray-400">Sucursal Centro</p>
           </div>

@@ -96,7 +96,7 @@ export const Servicios: React.FC = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Catálogo de Servicios</h1>
           <p className="text-sm text-gray-400">Administra los cortes, paquetes y precios de tu barbería.</p>
@@ -118,7 +118,7 @@ export const Servicios: React.FC = () => {
       </div>
 
       {/* Pestañas */}
-      <div className="flex gap-4 border-b border-gray-800 mb-6">
+      <div className="mb-6 flex flex-wrap gap-x-4 gap-y-2 border-b border-gray-800">
         <button
           onClick={() => setPestanaActiva('servicios')}
           className={`pb-3 text-sm font-medium transition-colors border-b-2 ${

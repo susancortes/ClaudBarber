@@ -25,12 +25,12 @@ export const Panel: React.FC<PropsPanel> = ({ citas, irACitas }) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Panel de Control</h1>
           <p className="text-sm text-gray-400">Resumen de la actividad de tu barbería.</p>
         </div>
-        <span className="text-xs text-gray-400 bg-[#161B2C] border border-gray-800 px-3 py-1.5 rounded-lg">
+        <span className="w-fit rounded-lg border border-gray-800 bg-[#161B2C] px-3 py-1.5 text-xs text-gray-400">
           Sábado, 17 de octubre de 2026
         </span>
       </div>
@@ -59,7 +59,7 @@ export const Panel: React.FC<PropsPanel> = ({ citas, irACitas }) => {
 
       {/* Sección Agenda del Día (Sin checkboxes molestos) */}
       <div className="bg-[#161B2C] border border-gray-800 rounded-xl overflow-hidden shadow-md">
-        <div className="px-6 py-4 border-b border-gray-800 flex items-center justify-between">
+        <div className="flex flex-col gap-3 border-b border-gray-800 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div>
             <h2 className="text-lg font-semibold text-white">Agenda del día</h2>
             <p className="text-xs text-gray-400">Próximas citas - {citasHoy.length} reservas programadas</p>
